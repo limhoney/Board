@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+	<!-- 会員加入 -->
+	<insert id="register">
+	    INSERT INTO TBL_MEMBER(   USERID 
+	   					       , USERPASS 
+	   					       , USERNAME 	)
+	                  VALUES(    #{userId} 
+	                 		   , #{userPass}
+	                 		   , #{userName})
+   
+    </insert>
+    
+    <!-- ログイン -->
+	<select id="login" resultType="com.board.domain.MemberVO">
+		SELECT USERID, USERPASS, USERNAME
+		  FROM TBL_MEMBER
+		 WHERE USERID = #{userId}
+	</select>
+	
+	
+	<!-- 会員情報修正 -->
+	<update id="memberUpdate">
+		UPDATE TBL_MEMBER SET 
+		USERNAME = #{userName}
+		WHERE USERID = #{userId}
+	</update>
+	
+	<!-- 会員退会 -->
+	<delete id="memberDelete">
+		DELETE FROM TBL_MEMBER
+		WHERE USERID = #{userId}
+	</delete>
+	
+	<!-- パスワードチェック -->
+	<select id="passChk" resultType="int">
+		SELECT COUNT(*) FROM TBL_MEMBER
+		WHERE USERID = #{userId}
+		  AND USERPASS = #{userPass}
+	</select>
+	
+		<!-- ID重複確認 -->
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*) FROM TBL_MEMBER
+		WHERE USERID = #{userId}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
