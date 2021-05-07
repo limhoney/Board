@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="replyMapper">
+
+<!-- コメント照会 -->
+	<select id="readReply" resultType="com.board.vo.ReplyVO">
+    	SELECT
+    		  RNO, CONTENT, WRITER, REGDATE
+    	 FROM TBL_REPLY
+    	WHERE BNO = #{bno}
+	</select>
+
+<!-- コメント作成 -->
+	<insert id="writeReply">
+	INSERT INTO TBL_REPLY(
+							  BNO
+							, RNO
+							, CONTENT
+							, WRITER
+						  				)
+				  VALUES(	 #{bno}
+				  		   , NEXTVAL(TBL_REPLY_SEQ)
+				  		   , #{content}
+				  		   , #{writer}	)
+	</insert>
+	
+<!-- コメント修正 -->
+	<update id="updateReply" parameterType="com.board.vo.ReplyVO">
+		UPDATE TBL_REPLY SET CONTENT = #{content}
+		WHERE RNO = #{rno}
+	</update>
+
+<!-- コメント削除 -->
+	<delete id="deleteReply" parameterType="com.board.vo.ReplyVO">
+		DELETE FROM TBL_REPLY
+		WHERE RNO = #{rno}
+	</delete>
+	
+<!-- コメント照会 -->
+	<select id="selectReply" resultType="com.board.vo.ReplyVO">
+		SELECT
+				BNO
+			  , RNO
+			  , CONTENT
+			  , WRITER
+			  , REGDATE
+		  FROM TBL_REPLY
+		 WHERE RNO = #{rno}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
